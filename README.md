@@ -1,2 +1,2 @@
 # UNO
- data scince project on best stratigys for uno
+ lol i need to add one

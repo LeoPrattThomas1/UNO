@@ -154,3 +154,4 @@ cython_debug/
 #the data scince stuff
 .csv
 .Rproj.user
+.vscode

@@ -29,6 +29,8 @@ cards_start = 7
 game_moves = False
 winner = True
 
+#this is the main game run of uno
+# NOTE: this code is unefficient and needs to be optimized.  
 class UNO():
     def __init__(self,people):
         self.last_move = None
@@ -112,13 +114,13 @@ class UNO():
     
     
     
-    #======== run game ===========
+    #======== run game =========== ## REWRITE THIS <=====================
     
     def round(self, turn = 0):
         skip = 0
             
         if self.game_in_play:
-            #if the turn is higer then the plays go back to 0
+            #if the turn is higher then the plays go back to 0
             if turn == len(self.players):
                 turn = 0
             elif turn == -1:
@@ -154,7 +156,7 @@ class UNO():
                     elif last_move.number == "x":
                         skip = 1
                     
-                    #revurse direction
+                    #reverse direction
                     elif last_move.number == "&":
                         if self.direction == 1:
                             self.direction = -1
@@ -182,12 +184,13 @@ class UNO():
             
             
 
-
+# class of player
 class Player():
     def __init__(self, deck):
         self.deck = deck
         #picking algorithm pick
     
+    #check to see if the player have won
     def win_check(self):
         if len(self.deck) == 0:
             if game_moves:
@@ -195,13 +198,14 @@ class Player():
             return True
         return False
 
+    #check to see if the player have moved
     def player_move(self, game, last_card):
         self.game = game
         valid_cards = game.deck_check(self.deck)
         if game_moves: 
             print("cards",self.deck)
         
-        #last player move was a +2
+        #last player move was a +2 see if you can stack the cards
         if last_card.number == "+" and game.stack_number != 0:
             
             # plus_cards_TF_map = [card.number_check("+") for cards in self.deck]
@@ -219,31 +223,35 @@ class Player():
                 
                         #draw, skip
                 
-                
+        #see if i can play a fard        
         else: #no
             return self.card_check(valid_cards)
                 #you have a card? (create new algorithm)
                 
-                    
+                
+    # sees in the moment if you need to play a card,
+    # draw a card, see if it has options or there 
+    # is only one card they can play
     def card_check(self,valid_cards):
-        #yes 1 card
+        #yes 1 card to play
         if len(valid_cards) == 1:
             return self.play(valid_cards[0])
             #play card
             
-        #no
+        #no cards to play
         elif len(valid_cards) == 0:
             #draw
             self.draw()
             #recurse 
             return self.card_check(self.game.deck_check(self.deck))
             
-        #yes many
+        #yes many cards to play
         else:
             return self.play(self.run_algorithms(valid_cards))
             #run_algorithms!!!!!
     
-    def run_algorithms(self,valid_cards):
+    #run AI aligrithosm if it is possible
+    def run_algorithms(self,valid_cards): # <========== THIS NEEDs to be updated to run different strategys
         #pick algorithm
         return self.algorithm_random(valid_cards)
     

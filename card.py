@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+# this takes every number and every card color so i can make a complete deck
 COLORS = {
         'r':"red",
         'y':"yellow",
@@ -39,7 +40,8 @@ NUMBERS = {
         'x':["skip",True], 
     }
 
-
+# This is a class that stores a singer card
+# it requires a number and a color and checks to make sure its valid.
 class Card():
     def __init__(self, number, color):
         
@@ -53,17 +55,22 @@ class Card():
         self.number = number
         self.color = color
     
+    #      built in functions
+    
+    #if printing out the card its 'user' friendly
     def __str__(self):
         return NUMBERS[self.number][0]+" : "+COLORS[self.color]
-    def __repr__(self):
+    def __repr__(self): # do the same in lists
         return str(self)
     
-    def is_special_card(self):
+    def is_special_card(self): #is a +2, +4, reverse ECT
         return NUMBERS[self.number][1]
     
-    def number_check(self,number):
+    # get the number value of the card
+    def number_check(self,number): 
         return number == self.number
     
+    # compare to cards to see if they are the same
     def card_check(self,card):
 
         if self.color == card.color: #color check

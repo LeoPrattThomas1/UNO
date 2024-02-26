@@ -20,7 +20,7 @@ from UNO import *
 from csv import writer
 import sys
 
-
+# this is the part that can be modified for different games of uno
 wins = [] 
 a = 0
 while True:
