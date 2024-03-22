@@ -155,3 +155,5 @@ cython_debug/
 .csv
 .Rproj.user
 .vscode
+
+game.csv

@@ -27,7 +27,7 @@ import time
 cards_start = 7
 
 game_moves = False
-winner = True
+winner = False
 
 #this is the main game run of uno
 # NOTE: this code is unefficient and needs to be optimized.  
@@ -66,6 +66,7 @@ class UNO():
         
         if game_moves:
             print(self.top_card())
+        
     
     #moves players can play in our game of uno
 
@@ -117,9 +118,12 @@ class UNO():
     #======== run game =========== ## REWRITE THIS <=====================
     
     def round(self, turn = 0):
-        skip = 0
+        
+        
+        while self.game_in_play:
+            skip = 0#reset the skip
             
-        if self.game_in_play:
+            
             #if the turn is higher then the plays go back to 0
             if turn == len(self.players):
                 turn = 0
@@ -173,13 +177,15 @@ class UNO():
                 #    print(turn)
                 return turn
             
+            #print out game data if the game is on print game moves
             if game_moves: 
                 print("turn over\n")
                 print(str(self.top_card())+"\n")
                 # str(input(""))
             
             #get next player
-            self.round(turn+self.direction+skip)
+            turn += self.direction+skip
+            #self.round(turn+self.direction+skip)
         return self.winner
             
             
@@ -293,9 +299,18 @@ class Player():
 
         
 if __name__ == "__main__":
+    #"""
+    game_1 = UNO(4)
+    print(game_1.round())
+    """
+    
+    #count how long it takes tp do 1000 games
     start = time.time()
-    for a in range(1000):
+    rounds = 1000
+    for a in range(rounds):
         game_1 = UNO(4)
-        print(game_1.round())
+        game_1.round()
+        
     time_ran = time.time()-start
-    print(time_ran)
+    print(time_ran/rounds)# find out on average it takes to run one game
+    #"""

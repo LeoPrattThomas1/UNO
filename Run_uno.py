@@ -16,35 +16,54 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+#run with the amount of players in the code
+
 from UNO import *
 from csv import writer
 import sys
 
-# this is the part that can be modified for different games of uno
-wins = [] 
-a = 0
-while True:
-    a=a+1
-    if a >= 10000:
-        break
-    game_1 = UNO(int(sys.argv[1]))
-    try:
-        winner = game_1.round()
-    except:
-        None
-    print(winner)
-    wins.append(winner)
 
+def run_rounds():
+    # this is the part that can be modified for different games of uno
+    wins = [] 
+    game_round = 0
+    while True:
+        game_round += 1
+        
+        #run until 10_000 games
+        if game_round >= 10_000:
+            break
+    
+        #set up game
+        game_cur = UNO(int(sys.argv[1]))
+        
+        #run game, if the game has a error, just ignore that game
+        try:
+            winner = game_cur.round()
+            # print(winner)
+            wins.append(winner)
+        except:
+            print("error")
+        
+        
+    return wins
 
-with open('/Users/leopratt-thomas/Desktop/GitHub2/UNO/game.csv', 'a') as f_object:
-    
-        # Pass this file object to csv.writer()
-        # and get a writer object
-        writer_object = writer(f_object)
-    
-        # Pass the list as an argument into
-        # the writerow()
-        writer_object.writerow(wins)
-    
-        # Close the file object
-        f_object.close()
+def save_to_files(data):
+    with open('/Users/leopratt-thomas/Desktop/GitHub2/UNO/game.csv', 'a') as f_object:
+        
+            # Pass this file object to csv.writer()
+            # and get a writer object
+            writer_object = writer(f_object)
+        
+            # Pass the list as an argument into
+            # the writerow()
+            writer_object.writerow(data)
+        
+            # Close the file object
+            f_object.close()
+
+if __name__ == "__main__":
+    wins = [f"{sys.argv[1]} players"]
+    wins.extend(run_rounds())
+    # print(wins)
+    save_to_files(wins)
