@@ -27,12 +27,20 @@ def run_rounds():
     # this is the part that can be modified for different games of uno
     wins = [] 
     game_round = 0
+    tot_rounds  = 10_000
+    loading_per_rate = 5
+    
     while True:
         game_round += 1
         
         #run until 10_000 games
-        if game_round >= 10_000:
+        if game_round >= tot_rounds:
             break
+        
+        if ((game_round / (tot_rounds//loading_per_rate)) == #calculate the (game round / percentage round number)
+            (game_round // (tot_rounds//loading_per_rate))): # see if the result is a round number
+            
+            print(f"{round((game_round / tot_rounds)*100)}% done")
     
         #set up game
         game_cur = UNO(int(sys.argv[1]))
@@ -66,4 +74,4 @@ if __name__ == "__main__":
     wins = [f"{sys.argv[1]} players"]
     wins.extend(run_rounds())
     # print(wins)
-    save_to_files(wins)
+    # save_to_files(wins)
